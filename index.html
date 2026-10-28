@@ -14,6 +14,7 @@
   <header>
     <h1>{% if site.profile_url %}<a href="{{ site.profile_url }}">{{ site.author }}</a>{% else %}{{ site.author }}{% endif %}</h1>
     <p class="sub">{{ site.affiliation }}</p>
+     <p class="sub">{{ site.profile_url }}</p>
     <p class="updated">Last updated {{ site.time | date: "%-d %B %Y" }}</p>
   </header>
 
