@@ -29,3 +29,8 @@ Edit `_config.yml`.
 
 ## Change the look
 Edit `assets/style.css`.
+
+## Credits
+Year navigation links adapted from the
+[TOMCAT-CTM publications site](https://github.com/TOMCAT-CTM/publications)
+by Zihao Wang.
