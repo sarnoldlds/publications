@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.author }} | {{ site.title }}</title>
   <meta name="description" content="Publications of {{ site.author }}, {{ site.affiliation }}">
-  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 <body>
 <main>
@@ -24,11 +24,12 @@
     <h2>{{ site.title }} <span class="count">{{ pubs | size }}</span></h2>
     <input id="q" type="search" placeholder="Search title, author, journal…" aria-label="Search publications">
   </div>
+  <nav class="years" aria-label="Jump to year">{% for group in by_year %}<a href="#y{{ group.name }}">{{ group.name }}</a> {% endfor %}</nav>
   <p id="none" hidden>No publications match your search.</p>
 
   {% for group in by_year %}
   <section class="year-block">
-    <h3 class="year">{{ group.name }}</h3>
+    <h3 class="year" id="y{{ group.name }}">{{ group.name }}</h3>
     <ol class="pubs">
     {% for p in group.items %}
       {% assign authors = p.authors | escape %}
@@ -67,6 +68,8 @@
           li.hidden = !hit; if (hit) { any = true; shown++; }
         });
         b.hidden = !any;
+        var link = document.querySelector('.years a[href="#' + b.querySelector('h3').id + '"]');
+        if (link) link.hidden = !any;
       });
       none.hidden = shown > 0;
     });
