@@ -21,7 +21,7 @@
   {% assign by_year = pubs | group_by: "year" | sort: "name" | reverse %}
 
   <div class="bar">
-    <h2>{{ site.title }} <span class="count">{{ pubs | size }}</span></h2>
+    <h2>{{ site.title }} <span class="count" id="count" aria-live="polite">{{ pubs | size }}</span></h2>
     <input id="q" type="search" placeholder="Search title, author, journal…" aria-label="Search publications">
   </div>
   <nav class="years" aria-label="Jump to year">{% for group in by_year %}<a href="#y{{ group.name }}">{{ group.name }}</a> {% endfor %}</nav>
@@ -58,6 +58,7 @@
 <script>
   (function () {
     var q = document.getElementById('q'), none = document.getElementById('none');
+    var count = document.getElementById('count'), total = count.textContent;
     var blocks = document.querySelectorAll('.year-block');
     q.addEventListener('input', function () {
       var term = q.value.trim().toLowerCase(), shown = 0;
@@ -72,6 +73,7 @@
         if (link) link.hidden = !any;
       });
       none.hidden = shown > 0;
+      count.textContent = term ? shown + ' of ' + total : total;
     });
   })();
 </script>
